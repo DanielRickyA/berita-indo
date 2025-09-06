@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -8,8 +7,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Image from "next/image";
+import React from "react";
 
-export default function Home() {
+function Home() {
   return (
     <div className="relative">
       <div className="relative w-full h-[50dvh]">
@@ -37,7 +37,7 @@ export default function Home() {
                     <SelectValue placeholder="Select Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="light">Alam</SelectItem>
                     <SelectItem value="dark">Dark</SelectItem>
                     <SelectItem value="system">System</SelectItem>
                   </SelectContent>
@@ -57,3 +57,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

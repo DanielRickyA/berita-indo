@@ -1,7 +1,5 @@
-import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import NavUser from "@/components/nav-user";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -10,22 +8,14 @@ const poppins = Poppins({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  title: "BeritaIndo",
-  description: "Information about Indonesia Right Now",
-};
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={poppins.variable}>
-      <body>
-        <NavUser />
-        <div className="">{children}</div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
