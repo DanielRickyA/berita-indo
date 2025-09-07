@@ -7,14 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
-export default function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
+interface LoginFormProps {
+  onSubmit: (data: { username: string; password: string }) => void;
+  isLoading?: boolean;
+}
+
+export default function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log("tes");
-    setTimeout(() => setIsLoading(false), 1500);
+    onSubmit({ username, password });
   };
 
   return (
@@ -29,7 +33,8 @@ export default function LoginForm() {
             <Input
               id="username"
               type="text"
-              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
             />
@@ -39,13 +44,14 @@ export default function LoginForm() {
             <Input
               id="password"
               type="password"
-              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
             />
           </div>
           <Button disabled={isLoading} type="submit" className="w-full">
-            {isLoading && <Loader2 className="animate-spin" />}
+            {isLoading && <Loader2 className="animate-spin mr-2" />}
             Login
           </Button>
         </div>

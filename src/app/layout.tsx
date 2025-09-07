@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,6 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <body>{children}</body>
+      <Toaster
+        toastOptions={{
+          style: { fontFamily: "Poppins, sans-serif" },
+        }}
+        richColors
+      />
     </html>
   );
 }

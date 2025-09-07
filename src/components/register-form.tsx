@@ -12,14 +12,23 @@ import {
   SelectValue,
 } from "./ui/select";
 
-function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false);
+interface RegisterFormProps {
+  onSubmit: (data: {
+    username: string;
+    password: string;
+    role: string;
+  }) => void;
+  isLoading: boolean;
+}
+
+function RegisterForm({ onSubmit, isLoading }: RegisterFormProps) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log("tes");
-    setTimeout(() => setIsLoading(false), 1500);
+    onSubmit({ username, password, role });
   };
 
   return (
@@ -28,41 +37,49 @@ function RegisterForm() {
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
         </div>
+
         <div className="grid gap-6">
           <div className="grid gap-3">
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
               type="text"
-              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
+              disabled={isLoading}
             />
           </div>
+
           <div className="grid gap-3">
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
-              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
+              disabled={isLoading}
             />
           </div>
+
           <div className="grid gap-3">
-            <Label htmlFor="password">Role</Label>
-            <Select>
+            <Label htmlFor="role">Role</Label>
+            <Select value={role} onValueChange={setRole} disabled={isLoading}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select your role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="user">User</SelectItem>
+                <SelectItem value="Admin">Admin</SelectItem>
+                <SelectItem value="User">User</SelectItem>
               </SelectContent>
             </Select>
           </div>
+
           <Button disabled={isLoading} type="submit" className="w-full">
-            {isLoading && <Loader2 className="animate-spin" />}
+            {isLoading && <Loader2 className="animate-spin mr-2" />}
             Register
           </Button>
         </div>
