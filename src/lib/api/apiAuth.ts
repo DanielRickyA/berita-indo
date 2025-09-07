@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import useAxios from "..";
-import { ApiError, ApiResponse } from "../type";
+import { ApiError, ApiResponse, headers } from "../type";
 
 export async function login({
   username,
@@ -46,7 +46,30 @@ export async function register({
   }
 }
 
+export async function getProfil(): Promise<ProfilResponse> {
+  try {
+    const response = await useAxios.get(`/auth/profile`, {
+      headers: headers(),
+    });
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<ApiError>;
+    throw {
+      message: axiosError.response?.data?.message || "Terjadi kesalahan!",
+      data: null,
+    } as ApiError;
+  }
+}
+
 export type LoginResponse = {
   token: string;
   role: string;
+};
+
+export type ProfilResponse = {
+  id: string;
+  username: string;
+  role: "User" | "Admin";
+  createdAt: string;
+  updatedAt: string;
 };

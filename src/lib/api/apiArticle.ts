@@ -2,9 +2,47 @@ import { AxiosError } from "axios";
 import useAxios from "..";
 import { ApiError, ApiResponse } from "../type";
 
-export async function getJurusan(): Promise<ApiResponse<Article[]>> {
+export interface GetArticlesParams {
+  page?: number;
+  limit?: number;
+  articleId?: string;
+  userId?: string;
+  title?: string;
+  category?: string;
+  createdAtStart?: string;
+  createdAtEnd?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}
+
+export async function getArticles(
+  params: GetArticlesParams = {}
+): Promise<ApiResponse<ArticleModelResponse[]>> {
   try {
-    const response = await useAxios.get(`/articles`, {});
+    const { page = 1, limit = 10, ...filters } = params;
+
+    // Hanya kirim parameter yang punya nilai
+    const axiosParams: Record<string, unknown> = { page, limit };
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        axiosParams[key] = value;
+      }
+    });
+
+    const response = await useAxios.get("/articles", { params: axiosParams });
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<ApiError>;
+    throw {
+      message: axiosError.response?.data?.message || "Terjadi kesalahan!",
+      data: null,
+    } as ApiError;
+  }
+}
+
+export async function getArticle(id: string): Promise<ArticleModelResponse> {
+  try {
+    const response = await useAxios.get(`/articles/${id}`);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ApiError>;
@@ -19,24 +57,25 @@ export interface Category {
   id: string;
   name: string;
   userId: string;
-  createdAt: string; // atau Date kalau nanti parse
-  updatedAt: string; // atau Date
+  createdAt: string; 
+  updatedAt: string; 
 }
 
 export interface User {
   id: string;
   username: string;
-  role: "User" | "Admin"; // jika hanya 2 role
+  role: "User" | "Admin";
 }
 
-export interface Article {
+export interface ArticleModelResponse {
   id: string;
   title: string;
   content: string;
+  imageUrl: string;
   userId: string;
   categoryId: string;
-  createdAt: string; // bisa juga Date
-  updatedAt: string; // bisa juga Date
+  createdAt: string;
+  updatedAt: string;
   category: Category;
   user: User;
 }

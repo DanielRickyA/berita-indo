@@ -7,3 +7,9 @@ export type ApiError = {
   message: string;
   data: null;
 };
+
+export function headers() {
+  return {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+}

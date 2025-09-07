@@ -19,6 +19,20 @@ body {
   font-family: var(--font-body), sans-serif;
 }
 
+.custom-line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.custom-line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -30,7 +44,7 @@ body {
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-primary-foreground: #000000;
   --color-sidebar-primary: #ffffff;
-  --color-sidebar-foreground:  #ffffff;
+  --color-sidebar-foreground: #ffffff;
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
