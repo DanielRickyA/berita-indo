@@ -16,8 +16,9 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PageProps {
-  params: Record<string, string>;
-  searchParams?: Record<string, string | string[] | undefined>;
+  params: { id: string };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams?: any;
 }
 
 async function Page({ params }: PageProps) {
