@@ -16,8 +16,8 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PageProps {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Record<string, string>;
+  searchParams?: Record<string, string | string[] | undefined>;
 }
 
 async function Page({ params }: PageProps) {
