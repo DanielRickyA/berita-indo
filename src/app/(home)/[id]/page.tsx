@@ -22,7 +22,7 @@ interface PageProps {
 
 async function Page({ params }: PageProps) {
   const { id } = await params;
-
+  
   const article = await getArticle(id);
 
   const articles = await getArticles({
