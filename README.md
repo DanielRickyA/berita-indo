@@ -1,11 +1,17 @@
 Link Router untuk halaman ini
+
 Home => /
+
 Detail Article => /{id}
+
 Login => /login
+
 Register => /Register
 
 Khusus Role Admin
+
 List Article => /admin
+
 List Category => /admin/category
 
 Cara User ketika ingin logout
