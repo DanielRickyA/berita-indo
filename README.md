@@ -13,6 +13,7 @@ Cara User ketika ingin logout
 Pada gambar bagian kanan atas profil user diklik akan mengeluakan menu logout yang nanti digunakna untuk logout
 
 <img width="309" height="1265" alt="image" src="https://github.com/user-attachments/assets/1ff52043-8e58-4a4a-b870-b0128b1907df" />
+
 Pada Admin di sidebar terdapat tulisan logout unutk logout
 
 Link Website bisa dilihat disini 
