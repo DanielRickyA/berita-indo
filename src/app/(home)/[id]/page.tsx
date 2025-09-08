@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PageProps {
   params: { id: string };
+  searchParams?: undefined;
 }
 
 async function Page({ params }: PageProps) {
