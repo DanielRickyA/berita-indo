@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { getArticle } from "@/lib/api/apiArticle";
+import { getArticle, getArticles } from "@/lib/api/apiArticle";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 
@@ -12,6 +12,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
+import Link from "next/link";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface DetailArticleProps {
   params: { id: string };
@@ -21,7 +23,13 @@ async function Page({ params }: DetailArticleProps) {
   const { id } = params;
 
   const article = await getArticle(id);
-  console.log(article);
+
+  const articles = await getArticles({
+    category: article.category.id,
+    page: 1,
+    limit: 3,
+  });
+  console.log(articles);
   return (
     <div className="max-w-7xl  mx-auto px-4 md:px-6 py-22 ">
       <Breadcrumb>
@@ -70,6 +78,52 @@ async function Page({ params }: DetailArticleProps) {
         </p>
       </div>
       <p className="text-justify mt-4">{article?.content}</p>
+      <p className="text-black mt-4 font-semibold text-xl">Berita Lainnnya</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {articles?.data
+          ?.filter((item) => item.id !== article.id) // buang artikel utama
+          .map((item) => (
+            <Link href={`/${item.id}`} key={item.id}>
+              <Card className="bg-transparent border-none shadow-none w-full p-0 pt-4 gap-2">
+                <CardHeader className="relative p-0 aspect-video">
+                  <Image
+                    src={item.imageUrl}
+                    alt="Background"
+                    fill
+                    priority
+                    className="object-cover rounded-lg w-full h-full border"
+                  />
+                </CardHeader>
+                <CardContent className="p-0">
+                  <p className="text-sm mt-1 text-gray-500">
+                    {formatDate(item.createdAt)}
+                  </p>
+                  <p
+                    className="mt-2 font-semibold text-lg custom-line-clamp-2"
+                    title={item.title}
+                  >
+                    {item.title}
+                  </p>
+                  <p className="mt-2 text-black/70 custom-line-clamp-3">
+                    {item.content}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2 mt-4">
+                    <Badge className="rounded-full bg-[#acd0f8] text-[#1f3c8b]">
+                      {item.category.name}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+
+        {articles?.data?.filter((item) => item.id !== article.id).length ===
+          0 && (
+          <p className="col-span-full mt-6 text-left text-2xl text-gray-500">
+            Tidak ada berita lainnya.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function AdminLayout({
   children,
@@ -42,16 +43,18 @@ export default function AdminLayout({
                   const isLast = index === pathSegments.length - 1;
 
                   return (
-                    <BreadcrumbItem key={pathTo}>
-                      {isLast ? (
-                        <BreadcrumbPage>{segment}</BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink asChild>
-                          <Link href={pathTo}>{segment}</Link>
-                        </BreadcrumbLink>
-                      )}
+                    <React.Fragment key={pathTo}>
+                      <BreadcrumbItem>
+                        {isLast ? (
+                          <BreadcrumbPage>{segment}</BreadcrumbPage>
+                        ) : (
+                          <BreadcrumbLink asChild>
+                            <Link href={pathTo}>{segment}</Link>
+                          </BreadcrumbLink>
+                        )}
+                      </BreadcrumbItem>
                       {!isLast && <BreadcrumbSeparator />}
-                    </BreadcrumbItem>
+                    </React.Fragment>
                   );
                 })}
               </BreadcrumbList>

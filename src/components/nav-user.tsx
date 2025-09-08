@@ -12,10 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ChevronsUpDown, Menu } from "lucide-react";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 export default function NavUser() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [profil, setProfil] = useState<ProfilResponse>({
@@ -43,21 +44,24 @@ export default function NavUser() {
     }
   }
   useEffect(() => {
-    fetchProfil();
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchProfil();
+    }
   }, []);
 
   const handleLogout = async () => {
     try {
       localStorage.removeItem("token");
       localStorage.removeItem("role");
+      router.push("/login");
       setProfil({
         id: "",
         username: "",
-        role: "User",
+        role: "",
         createdAt: "",
         updatedAt: "",
       });
-      Router.push("/");
     } catch (error) {
       console.error("Logout gagal:", error);
     }

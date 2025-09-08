@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "s3.sellerpintar.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "/**",
+      },
     ],
   },
 };

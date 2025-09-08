@@ -7,19 +7,27 @@ import { Badge } from "@/components/ui/badge";
 import { getArticles } from "@/lib/api/apiArticle";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface HomeProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 async function Home({ searchParams }: HomeProps) {
-  // Ambil filter dari query params
   const category =
     typeof searchParams.category === "string" ? searchParams.category : "";
   const search =
     typeof searchParams.search === "string" ? searchParams.search : "";
+  const page =
+    typeof searchParams.page === "string" ? parseInt(searchParams.page, 10) : 1;
 
-  // Fetch categories server-side
   let categories: CategoryModelResponse[] = [];
   try {
     const res = await getCategories();
@@ -28,13 +36,14 @@ async function Home({ searchParams }: HomeProps) {
     console.error("Failed to fetch categories:", err);
   }
 
-  // Fetch articles server-side sesuai filter
   const articles = await getArticles({
     category,
     title: search,
-    page: 1,
-    limit: 10,
+    page,
+    limit: 9,
   });
+
+  const totalPages = Math.ceil(articles.total / 9);
 
   console.log("Fetched articles:", articles);
   return (
@@ -63,7 +72,10 @@ async function Home({ searchParams }: HomeProps) {
       </div>
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6">
         <div className="flex justify-between items-center">
-          <p>Showing: 20 of 240 article</p>
+          <p>
+            Showing: {articles!.data!.length * articles.page} of{" "}
+            {articles.total} article
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {articles?.data?.map((item) => (
@@ -71,7 +83,10 @@ async function Home({ searchParams }: HomeProps) {
               <Card className="bg-transparent border-none shadow-none w-full p-0 pt-4 gap-2">
                 <CardHeader className="relative p-0 aspect-video">
                   <Image
-                    src={item?.imageUrl}
+                    src={
+                      item?.imageUrl ||
+                      "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                    }
                     alt="Background"
                     fill
                     priority
@@ -101,6 +116,49 @@ async function Home({ searchParams }: HomeProps) {
             </Link>
           ))}
         </div>
+        {totalPages > 1 && (
+          <div className="mt-8 flex justify-center gap-8">
+            <Pagination>
+              <PaginationContent>
+                {/* Previous */}
+                <PaginationItem>
+                  <PaginationPrevious
+                    href={page > 1 ? `/?page=${page - 1}` : undefined}
+                    className={
+                      page === 1 ? "pointer-events-none opacity-50" : ""
+                    }
+                  />
+                </PaginationItem>
+
+                {/* Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (p) => (
+                    <PaginationItem key={p}>
+                      <PaginationLink
+                        href={`/?page=${p}`}
+                        isActive={p === page}
+                      >
+                        {p}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )
+                )}
+
+                {/* Next */}
+                <PaginationItem>
+                  <PaginationNext
+                    href={page < totalPages ? `/?page=${page + 1}` : undefined}
+                    className={
+                      page === totalPages
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
       </div>
     </div>
   );

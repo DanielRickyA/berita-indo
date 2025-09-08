@@ -24,7 +24,7 @@ function Page() {
     try {
       const data = await login({ username, password });
       localStorage.setItem("token", data.token ?? "");
-      localStorage.setItem("role", data.token ?? "");
+      localStorage.setItem("role", data.role ?? "");
       toast.success("Login successful!");
       if (data.role == "Admin") {
         router.push("/admin");

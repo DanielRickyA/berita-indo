@@ -69,7 +69,7 @@ export type LoginResponse = {
 export type ProfilResponse = {
   id: string;
   username: string;
-  role: "User" | "Admin";
+  role: string;
   createdAt: string;
   updatedAt: string;
 };
