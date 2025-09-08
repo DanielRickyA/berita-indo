@@ -1,11 +1,18 @@
-Link Router untuk halaman ini
+**Link Router untuk halaman ini**
+
 Home => /
+
 Detail Article => /{id}
+
 Login => /login
+
 Register => /Register
 
-Khusus Role Admin
+
+**Khusus Role Admin**
+
 List Article => /admin
+
 List Category => /admin/category
 
 Cara User ketika ingin logout
@@ -16,7 +23,7 @@ Pada gambar bagian kanan atas profil user diklik akan mengeluakan menu logout ya
 
 Pada Admin di sidebar terdapat tulisan logout unutk logout
 
-Link Website bisa dilihat disini 
+**Link Website bisa dilihat disini **
 https://berita-indo-nine.vercel.app/
 
 
