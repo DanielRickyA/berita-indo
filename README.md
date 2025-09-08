@@ -1,3 +1,10 @@
+Akun
+
+User (username: Riq | password: Riq)
+
+Admin (username: Admin12 | password: Admin12)
+
+
 **Link Router untuk halaman ini**
 
 Home => /
@@ -9,7 +16,7 @@ Login => /login
 Register => /Register
 
 
-**Khusus Role Admin**
+Khusus Role Admin
 
 List Article => /admin
 
@@ -23,7 +30,8 @@ Pada gambar bagian kanan atas profil user diklik akan mengeluakan menu logout ya
 
 Pada Admin di sidebar terdapat tulisan logout unutk logout
 
-**Link Website bisa dilihat disini **
+Link Website bisa dilihat disini
+
 https://berita-indo-nine.vercel.app/
 
 
