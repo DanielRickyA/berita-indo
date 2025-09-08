@@ -1,3 +1,26 @@
+Link Router untuk halaman ini
+Home => /
+Detail Article => /{id}
+Login => /login
+Register => /Register
+
+Khusus Role Admin
+List Article => /admin
+List Category => /admin/category
+
+Cara User ketika ingin logout
+<img width="1675" height="162" alt="image" src="https://github.com/user-attachments/assets/832ca279-3711-4af1-8653-ad22f7fc1c86" />
+Pada gambar bagian kanan atas profil user diklik akan mengeluakan menu logout yang nanti digunakna untuk logout
+
+<img width="309" height="1265" alt="image" src="https://github.com/user-attachments/assets/1ff52043-8e58-4a4a-b870-b0128b1907df" />
+
+Pada Admin di sidebar terdapat tulisan logout unutk logout
+
+Link Website bisa dilihat disini 
+https://berita-indo-nine.vercel.app/
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
