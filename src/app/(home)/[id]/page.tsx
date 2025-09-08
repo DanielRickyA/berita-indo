@@ -16,13 +16,12 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PageProps {
-  params: { id: string };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  searchParams?: any;
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 async function Page({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const article = await getArticle(id);
 
