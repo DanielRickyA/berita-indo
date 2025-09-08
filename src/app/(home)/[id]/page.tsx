@@ -15,11 +15,12 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-interface DetailArticleProps {
+interface PageProps {
   params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-async function Page({ params }: DetailArticleProps) {
+async function Page({ params }: PageProps) {
   const { id } = params;
 
   const article = await getArticle(id);
