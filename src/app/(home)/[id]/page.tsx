@@ -16,13 +16,12 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: { id: string };
 }
 
 async function Page({ params }: PageProps) {
-  const { id } = await params;
-  
+  const { id } = params;
+
   const article = await getArticle(id);
 
   const articles = await getArticles({

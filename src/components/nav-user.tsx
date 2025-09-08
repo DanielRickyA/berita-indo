@@ -99,7 +99,7 @@ export default function NavUser() {
             </div>
           ) : (
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant="default"
                   size="lg"
@@ -113,7 +113,7 @@ export default function NavUser() {
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold text-black ">
+                    <span className="truncate font-semibold text-black">
                       {profil?.username}
                     </span>
                     <span className="truncate text-xs text-muted-foreground">

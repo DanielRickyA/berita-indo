@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getProfil, ProfilResponse } from "@/lib/api/apiAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 
 const data = {
   teams: [
@@ -47,7 +46,6 @@ const data = {
 };
 function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
   const [profil, setProfil] = useState<ProfilResponse>({
     id: "",
     username: "",
